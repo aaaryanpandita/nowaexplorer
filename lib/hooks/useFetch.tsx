@@ -25,6 +25,7 @@ export default function useFetch() {
     const isFormData = _body instanceof FormData;
     const withBody = isBodyAllowed(params?.method);
 
+
     const body: FormData | string | undefined = (() => {
       if (!withBody) {
         return;
@@ -45,6 +46,8 @@ export default function useFetch() {
         ...params?.headers,
       },
     };
+
+   
 
     return fetch(path, reqParams).then(response => {
 

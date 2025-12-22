@@ -38,8 +38,7 @@ const siteUrl = [
 
 const apiUrl = (() => {
   const baseUrl = [
-    process.env.NEXT_PUBLIC_API_PROTOCOL || 'https',
-    '://',
+    process.env.NEXT_PUBLIC_API_PROTOCOL || 
     process.env.NEXT_PUBLIC_API_HOST,
     process.env.NEXT_PUBLIC_API_PORT && ':' + process.env.NEXT_PUBLIC_API_PORT,
   ].filter(Boolean).join('');

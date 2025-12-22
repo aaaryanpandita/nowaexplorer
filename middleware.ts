@@ -25,10 +25,13 @@ export async function middleware(req: NextRequest) {
 
   const end = Date.now();
 
-  const cspHeader = await csp.get();
+  if (process.env.NODE_ENV !== 'development') {
+    const cspHeader = await csp.get();
+    res.headers.append('Content-Security-Policy', cspHeader);
+  }
 
-  res.headers.append('Content-Security-Policy', cspHeader);
-  res.headers.append('Server-Timing', `middleware;dur=${ end - start }`);
+
+  res.headers.append('Server-Timing', `middleware;dur=${end - start}`);
   res.headers.append('Docker-ID', process.env.HOSTNAME || '');
 
   return res;
@@ -38,7 +41,7 @@ export async function middleware(req: NextRequest) {
  * Configure which routes should pass through the Middleware.
  */
 export const config = {
-  matcher: [ '/', '/:notunderscore((?!_next).+)' ],
+  matcher: ['/', '/:notunderscore((?!_next).+)'],
   // matcher: [
   //   '/((?!.*\\.|api\\/|node-api\\/).*)', // exclude all static + api + node-api routes
   // ],

@@ -16,6 +16,14 @@ dotenv \
 source ./deploy/scripts/build_sprite.sh
 echo ""
 
+
+#!/usr/bin/env bash
+set -e
+
+PORT=3000
+
+
+
 # generate envs.js file and run the app
 dotenv \
   -v NEXT_PUBLIC_GIT_COMMIT_SHA=$(git rev-parse --short HEAD) \
@@ -26,5 +34,5 @@ dotenv \
   -e .env.local \
   -e .env.development \
   -e .env \
-  -- bash -c './deploy/scripts/make_envs_script.sh && next dev --turbopack -p $NEXT_PUBLIC_APP_PORT' |
+  -- bash -c './deploy/scripts/make_envs_script.sh && next dev  -p ${NEXT_PUBLIC_APP_PORT:-3000}' |
 pino-pretty

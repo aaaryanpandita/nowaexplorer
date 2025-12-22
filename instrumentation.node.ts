@@ -41,7 +41,7 @@ const sdk = new NodeSDK({
             if (!request.url) {
               return false;
             }
-            const url = new URL(request.url, `http://${ request.headers.host }`);
+            const url = new URL(request.url, `${ request.headers.host }`);
             if (
               url.pathname.startsWith('/_next/static/') ||
               url.pathname.startsWith('/_next/data/') ||
