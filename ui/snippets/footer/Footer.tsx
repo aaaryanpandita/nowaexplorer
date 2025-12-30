@@ -192,7 +192,7 @@ const Footer = () => {
         <Grid { ...contentProps }>
           <div>
             { renderNetworkInfo() }
-            { renderProjectInfo() }
+           
             { renderRecaptcha() }
           </div>
 
@@ -241,7 +241,7 @@ const Footer = () => {
       >
 
         { renderNetworkInfo({ lg: 'network' }) }
-        { renderProjectInfo({ lg: 'info' }) }
+       
         { renderRecaptcha({ lg: 'recaptcha' }) }
 
         <Grid

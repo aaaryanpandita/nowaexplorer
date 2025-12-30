@@ -13,7 +13,7 @@ import { GET_BLOCK, GET_TRANSACTION, GET_TRANSACTION_RECEIPT, GET_TRANSACTION_CO
 import { SECOND } from 'toolkit/utils/consts';
 import { unknownAddress } from 'ui/shared/address/utils';
 import ServiceDegradationWarning from 'ui/shared/alerts/ServiceDegradationWarning';
-import TestnetWarning from 'ui/shared/alerts/TestnetWarning';
+//import TestnetWarning from 'ui/shared/alerts/TestnetWarning';
 import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 
@@ -153,7 +153,7 @@ const TxDetailsDegraded = ({ hash, txQuery }: Props) => {
   return (
     <>
       <Flex rowGap={{ base: 1, lg: 2 }} mb={{ base: 3, lg: 6 }} flexDir="column">
-        <TestnetWarning isLoading={ query.isPlaceholderData }/>
+       
         { originalError?.status !== 404 && <ServiceDegradationWarning isLoading={ query.isPlaceholderData }/> }
       </Flex>
       <TxInfo data={ query.data } isLoading={ query.isPlaceholderData }/>

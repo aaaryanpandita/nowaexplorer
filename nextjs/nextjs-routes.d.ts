@@ -35,10 +35,12 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/apps/[id]", { "id": string }>
     | StaticRoute<"/apps">
     | StaticRoute<"/auth/profile">
+    | DynamicRoute<"/batche/[batchNumber]", { "batchNumber": string }>
+    | StaticRoute<"/batche/blockscout_base">
+    | StaticRoute<"/batche">
     | DynamicRoute<"/batches/[number]", { "number": string }>
     | DynamicRoute<"/batches/celestia/[height]/[commitment]", { "height": string; "commitment": string }>
     | StaticRoute<"/batches">
-    | DynamicRoute<"/blobs/[hash]", { "hash": string }>
     | DynamicRoute<"/block/[height_or_hash]", { "height_or_hash": string }>
     | DynamicRoute<"/block/countdown/[height]", { "height": string }>
     | StaticRoute<"/block/countdown">
@@ -79,6 +81,7 @@ declare module "nextjs-routes" {
     | StaticRoute<"/output-roots">
     | DynamicRoute<"/pools/[hash]", { "hash": string }>
     | StaticRoute<"/pools">
+    | StaticRoute<"/property-batches">
     | StaticRoute<"/public-tags/submit">
     | StaticRoute<"/search-results">
     | StaticRoute<"/sprite">

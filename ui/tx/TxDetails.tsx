@@ -5,7 +5,7 @@ import React from 'react';
 import type * as tac from '@blockscout/tac-operation-lifecycle-types';
 
 import type { ResourceError } from 'lib/api/resources';
-import TestnetWarning from 'ui/shared/alerts/TestnetWarning';
+// import TestnetWarning from 'ui/shared/alerts/TestnetWarning';
 import BlockPendingUpdateAlert from 'ui/shared/block/BlockPendingUpdateAlert';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 
@@ -25,7 +25,7 @@ const TxDetails = ({ txQuery, tacOperationQuery }: Props) => {
   return (
     <>
       <Flex rowGap={{ base: 1, lg: 2 }} mb={{ base: 3, lg: 6 }} flexDir="column">
-        <TestnetWarning isLoading={ txQuery.isPlaceholderData }/>
+       
         { txQuery.data?.is_pending_update && <BlockPendingUpdateAlert view="tx"/> }
       </Flex>
       <TxInfo

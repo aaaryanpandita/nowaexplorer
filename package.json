@@ -49,7 +49,8 @@
     "@blockscout/tac-operation-lifecycle-types": "0.0.1-alpha.6",
     "@blockscout/visualizer-types": "0.2.0",
     "@blockscout/zetachain-cctx-types": "^1.0.0-rc.6",
-    "@chakra-ui/react": "3.15.0",
+    "@chakra-ui/react": "^3.30.0",
+    "@chakra-ui/tooltip": "^2.3.1",
     "@emotion/react": "11.14.0",
     "@growthbook/growthbook-react": "0.21.0",
     "@helia/verified-fetch": "2.6.12",
@@ -170,6 +171,7 @@
     "eslint-plugin-consistent-default-export-name": "^0.0.15",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-import-helpers": "2.0.1",
+    "eslint-plugin-jest": "^29.11.2",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-no-cyrillic-string": "^1.0.5",
     "eslint-plugin-playwright": "2.0.1",
@@ -197,7 +199,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
-"resolutions": {
+  "resolutions": {
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@lifi/widget": "3.25.0",

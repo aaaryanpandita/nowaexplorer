@@ -21,6 +21,8 @@ export function isInternalItem(item: NavItem): item is NavItemInternal {
   return 'nextRoute' in item;
 }
 
+
+
 export default function useNavItems(): ReturnType {
   const router = useRouter();
   const pathname = router.pathname;
@@ -70,6 +72,17 @@ export default function useNavItems(): ReturnType {
       icon: 'internal_txns',
       isActive: pathname === '/internal-txs',
     };
+
+
+
+    const propertyBatches: NavItem = {
+      text: 'Batches',
+      nextRoute: { pathname: '/property-batches' as const }, // ✅ NEW ROUTE
+      icon: 'txn_batches',
+      isActive: pathname.startsWith('/property-batches'),
+    };
+
+
     const userOps: NavItem | null = config.features.userOps.isEnabled ? {
       text: 'User operations',
       nextRoute: { pathname: '/ops' as const },
@@ -78,12 +91,12 @@ export default function useNavItems(): ReturnType {
     } : null;
 
     const verifiedContracts: NavItem | null =
-     {
-       text: 'Verified contracts',
-       nextRoute: { pathname: '/verified-contracts' as const },
-       icon: 'verified',
-       isActive: pathname === '/verified-contracts',
-     };
+    {
+      text: 'Verified contracts',
+      nextRoute: { pathname: '/verified-contracts' as const },
+      icon: 'verified',
+      isActive: pathname === '/verified-contracts',
+    };
     const nameLookup = config.features.nameServices.isEnabled ? {
       text: 'Name services lookup',
       nextRoute: { pathname: '/name-services' as const },
@@ -97,13 +110,13 @@ export default function useNavItems(): ReturnType {
       isActive: pathname === '/validators' || pathname === '/validators/[id]',
     } : null;
     const rollupDeposits = {
-      text: `Deposits (L1${ rightLineArrow }L2)`,
+      text: `Deposits (L1${rightLineArrow}L2)`,
       nextRoute: { pathname: '/deposits' as const },
       icon: 'arrows/south-east',
       isActive: pathname === '/deposits',
     };
     const rollupWithdrawals = {
-      text: `Withdrawals (L2${ rightLineArrow }L1)`,
+      text: `Withdrawals (L2${rightLineArrow}L1)`,
       nextRoute: { pathname: '/withdrawals' as const },
       icon: 'arrows/north-east',
       isActive: pathname === '/withdrawals',
@@ -275,7 +288,7 @@ export default function useNavItems(): ReturnType {
           isActive: pathname.startsWith('/stats') || pathname.startsWith('/uptime'),
           subItems: [
             {
-              text: `${ config.chain.name } stats`,
+              text: `${config.chain.name} stats`,
               nextRoute: { pathname: '/stats' as const },
               icon: 'graph',
               isActive: pathname.startsWith('/stats/'),
@@ -341,6 +354,7 @@ export default function useNavItems(): ReturnType {
         isActive: blockchainNavItems.flat().some(item => isInternalItem(item) && item.isActive),
         subItems: blockchainNavItems,
       },
+
       {
         text: 'Tokens',
         icon: 'token',
@@ -361,6 +375,7 @@ export default function useNavItems(): ReturnType {
         isActive: otherNavItems.flat().some(item => isInternalItem(item) && item.isActive),
         subItems: otherNavItems,
       },
+      propertyBatches,
     ].filter(Boolean);
 
     const accountNavItems: ReturnType['accountNavItems'] = [
@@ -397,5 +412,5 @@ export default function useNavItems(): ReturnType {
     ].filter(Boolean);
 
     return { mainNavItems, accountNavItems };
-  }, [ pathname, tab ]);
+  }, [pathname, tab]);
 }

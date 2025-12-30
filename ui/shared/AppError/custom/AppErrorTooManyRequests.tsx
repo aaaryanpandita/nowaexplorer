@@ -99,9 +99,9 @@ const AppErrorTooManyRequests = ({ bypassOptions, reset }: Props) => {
     };
   }, [ reset ]);
 
-  if (!config.services.reCaptchaV2.siteKey) {
-    throw new Error('reCAPTCHA V2 site key is not set');
-  }
+  // if (!config.services.reCaptchaV2.siteKey) {
+  //   throw new Error('reCAPTCHA V2 site key is not set');
+  // }
 
   const text = (() => {
     if (timeLeft === undefined && bypassOptions === 'no_bypass') {

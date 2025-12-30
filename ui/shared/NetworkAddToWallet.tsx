@@ -24,22 +24,28 @@ const NetworkAddToWallet = ({ source, onAddSuccess }: Props) => {
   const walletInfo = WALLETS_INFO[wallet];
 
   return (
-    <Button
-      variant="outline"
-      size="2xs"
-      borderWidth="1px"
-      fontWeight="500"
-      color={ walletInfo.color }
-      borderColor={ walletInfo.color }
-      onClick={ handleClick }
-      _hover={{
-        color: 'link.primary.hover',
-        borderColor: 'link.primary.hover',
-      }}
-    >
-      <IconSvg name={ walletInfo.icon } boxSize={ 3 }/>
-      Add { config.chain.name }
-    </Button>
+ <Button
+  variant="outline"
+  size="md"
+  px={ 4 }
+  py={ 2 }
+  gap={ 2 }
+  borderWidth="1.5px"
+  borderRadius="md"
+  color="blue.400"
+  borderColor="blue.400"
+  onClick={ handleClick }
+  _hover={{
+    color: 'blue.300',
+    borderColor: 'blue.300',
+    bg: 'blue.900',
+  }}
+>
+  <IconSvg name={ walletInfo.icon } boxSize={ 4 }/>
+  Add { config.chain.name }
+</Button>
+
+
   );
 };
 

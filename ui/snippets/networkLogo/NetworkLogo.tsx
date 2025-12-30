@@ -27,27 +27,29 @@ type Props = {
 };
 
 const NetworkLogo = ({ className }: Props) => {
-
-  const logoSrc = useColorModeValue(config.UI.navigation.logo.default, config.UI.navigation.logo.dark || config.UI.navigation.logo.default);
+  const filterValue = useColorModeValue(
+    undefined,
+    !config.UI.navigation.logo.dark ? INVERT_FILTER : undefined
+  );
 
   return (
     <chakra.a
-      className={ className }
-      href={ route({ pathname: '/' }) }
+      className={className}
+      href={route({ pathname: '/' })}
       aria-label="Link to main page"
     >
       <Image
         h="24px"
         skeletonWidth="120px"
-        src={ logoSrc }
-        alt={ `${ config.chain.name } network logo` }
-        fallback={ <LogoFallback/> }
-        filter={{ _dark: !config.UI.navigation.logo.dark ? INVERT_FILTER : undefined }}
+        src="https://migration.nowa.finance/assets/newLogo-LUy-Kah8.svg"
+        alt={`${config.chain.name} network logo`}
         objectFit="contain"
         objectPosition="left"
+        filter={filterValue}
       />
     </chakra.a>
   );
 };
+
 
 export default React.memo(chakra(NetworkLogo));
