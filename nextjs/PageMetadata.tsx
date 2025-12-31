@@ -18,25 +18,29 @@ const PageMetadata = <Pathname extends Route['pathname']>(props: Props<Pathname>
 
   return (
     <Head>
-      <title>{ title }</title>
-      <meta name="description" content={ description }/>
-      { canonical && <link rel="canonical" href={ canonical }/> }
+      <title>{title}</title>
+      <meta name="description" content={description} />
 
-      { /* OG TAGS */ }
-      <meta property="og:title" content={ opengraph.title }/>
-      { opengraph.description && <meta property="og:description" content={ opengraph.description }/> }
-      <meta property="og:image" content={ opengraph.imageUrl }/>
-      <meta property="og:type" content="website"/>
+      <link rel="icon" href="/icons/nowa.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/icons/nowa.svg" />
+      <link rel="shortcut icon" href="/icons/nowa.svg" />
+      {canonical && <link rel="canonical" href={canonical} />}
 
-      { /* Twitter Meta Tags */ }
-      <meta name="twitter:card" content="summary_large_image"/>
-      <meta property="twitter:domain" content={ config.app.host }/>
-      <meta name="twitter:title" content={ opengraph.title }/>
-      { opengraph.description && <meta name="twitter:description" content={ opengraph.description }/> }
-      <meta property="twitter:image" content={ opengraph.imageUrl }/>
+      { /* OG TAGS */}
+      <meta property="og:title" content={opengraph.title} />
+      {opengraph.description && <meta property="og:description" content={opengraph.description} />}
+      <meta property="og:image" content={opengraph.imageUrl} />
+      <meta property="og:type" content="website" />
 
-      { /* Prevent auto zoom in inputs on mobile */ }
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+      { /* Twitter Meta Tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:domain" content={config.app.host} />
+      <meta name="twitter:title" content={opengraph.title} />
+      {opengraph.description && <meta name="twitter:description" content={opengraph.description} />}
+      <meta property="twitter:image" content={opengraph.imageUrl} />
+
+      { /* Prevent auto zoom in inputs on mobile */}
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     </Head>
   );
 };
