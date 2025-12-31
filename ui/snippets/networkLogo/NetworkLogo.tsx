@@ -45,7 +45,6 @@ const NetworkLogo = ({ className }: Props) => {
         alt={`${config.chain.name} network logo`}
         objectFit="contain"
         objectPosition="left"
-        filter={filterValue}
       />
     </chakra.a>
   );

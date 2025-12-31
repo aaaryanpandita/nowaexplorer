@@ -92,7 +92,7 @@ const HeroBanner = () => {
           <SearchBar isHeroBanner/>
         </Box>
       </Box>
-      { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> }
+      {/* { !isMobile && <AdBanner format="mobile" w="fit-content" flexShrink={ 0 } borderRadius="md" overflow="hidden"/> } */}
     </Flex>
   );
 };
