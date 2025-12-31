@@ -35,7 +35,7 @@ interface PaginatedBatchesResponse {
   total_pages: number;
 }
 
-export const BASE_URL = "http://172.16.16.174:8081";
+export const BASE_URL = "http://172.16.16.179:8081";
 
 // Helper function to convert numeric status to string
 function getStatusString(status: number | string): string {
