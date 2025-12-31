@@ -44,8 +44,7 @@ const NetworkLogo = ({ className }: Props) => {
         src="https://migration.nowa.finance/assets/newLogo-LUy-Kah8.svg"
         alt={`${config.chain.name} network logo`}
         objectFit="contain"
-        objectPosition="left"
-      />
+        objectPosition="left"      />
     </chakra.a>
   );
 };
