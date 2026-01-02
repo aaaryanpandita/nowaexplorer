@@ -1,9 +1,33 @@
 async function headers() {
+  const csp = [
+    'default-src \'self\'',
+    'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\'',
+    'style-src \'self\' \'unsafe-inline\' fonts.gstatic.com',
+    'img-src \'self\' data: https:',
+    'font-src \'self\' fonts.gstatic.com',
+    [
+      'connect-src \'self\'',
+      'https://prover.nowa.finance',
+      'https://apiexplorer.nowa.finance',
+      'wss://apiexplorer.nowa.finance',
+      'https://infragrid.v.network',
+      'raw.githubusercontent.com',
+      'api.github.com',
+      'coinzilla.com',
+      '*.coinzilla.com',
+      'https://request-global.czilladx.com',
+      'servedbyadbutler.com',
+      '*.slise.xyz',
+      'app.specify.sh',
+      'https://delegated-ipfs.dev',
+      'https://trustless-gateway.link',
+    ].join(' '),
+  ].join('; ');
+
   return [
     {
       source: '/:path*',
       headers: [
-        // security headers from here - https://nextjs.org/docs/advanced-features/security-headers
         {
           key: 'X-Frame-Options',
           value: 'SAMEORIGIN',
@@ -27,6 +51,10 @@ async function headers() {
         {
           key: 'Referrer-Policy',
           value: 'origin-when-cross-origin',
+        },
+        {
+          key: 'Content-Security-Policy',
+          value: csp,
         },
       ],
     },
