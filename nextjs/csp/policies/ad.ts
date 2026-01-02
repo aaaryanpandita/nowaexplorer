@@ -2,9 +2,17 @@ import Base64 from 'crypto-js/enc-base64';
 import sha256 from 'crypto-js/sha256';
 import type CspDev from 'csp-dev';
 
+import config from 'configs/app';
 import { connectAdbutler, placeAd } from 'ui/shared/ad/adbutlerScript';
 
 export function ad(): CspDev.DirectiveDescriptor {
+  // Only add ad-related CSP rules if ads are actually enabled
+  const adFeature = config.features.adsBanner;
+
+  if (!adFeature.isEnabled) {
+    return {};
+  }
+
   return {
     'connect-src': [
       // coinzilla
