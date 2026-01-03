@@ -82,6 +82,12 @@ export default function useNavItems(): ReturnType {
       isActive: pathname.startsWith('/property-batches'),
     };
 
+    const faucetNavItem: NavItem = {
+      text: 'Faucet',
+      url: 'https://faucet.nowa.finance', // 👈 apna faucet link
+    };
+
+
 
     const userOps: NavItem | null = config.features.userOps.isEnabled ? {
       text: 'User operations',
@@ -376,6 +382,7 @@ export default function useNavItems(): ReturnType {
         subItems: otherNavItems,
       },
       propertyBatches,
+      faucetNavItem,
     ].filter(Boolean);
 
     const accountNavItems: ReturnType['accountNavItems'] = [

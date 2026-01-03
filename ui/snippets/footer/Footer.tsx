@@ -62,12 +62,7 @@ const Footer = () => {
       text: 'Discord',
       url: 'https://discord.gg/blockscout',
     },
-    {
-      icon: 'brands/blockscout' as const,
-      iconSize: '18px',
-      text: 'All chains',
-      url: 'https://www.blockscout.com/chains-and-projects',
-    },
+  
     {
       icon: 'donate' as const,
       iconSize: '20px',
@@ -244,7 +239,7 @@ const Footer = () => {
        
         { renderRecaptcha({ lg: 'recaptcha' }) }
 
-        <Grid
+        {/* <Grid
           gridArea={{ lg: 'links-bottom' }}
           gap={ 1 }
           gridTemplateColumns={{
@@ -263,7 +258,7 @@ const Footer = () => {
           mt={{ base: 8, lg: 0 }}
         >
           { BLOCKSCOUT_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

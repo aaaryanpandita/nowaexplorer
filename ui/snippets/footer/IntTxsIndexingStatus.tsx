@@ -32,7 +32,7 @@ const IntTxsIndexingStatus = () => {
 
       return newData;
     });
-  }, [ queryClient ]);
+  }, [queryClient]);
 
   const internalTxsIndexingChannel = useSocketChannel({
     topic: 'blocks:indexing_internal_transactions',
@@ -53,17 +53,17 @@ const IntTxsIndexingStatus = () => {
     return null;
   }
 
-  const hint = (
-    <Text textStyle="xs">
-      { data.indexed_internal_transactions_ratio &&
-        `${ Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) }% Blocks With Internal Transactions Indexed${ nbsp }${ ndash } ` }
-      We{ apos }re indexing this chain right now. Some of the counts may be inaccurate.
-    </Text>
-  );
+  // const hint = (
+  //   <Text textStyle="xs">
+  //     { data.indexed_internal_transactions_ratio &&
+  //       `${ Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) }% Blocks With Internal Transactions Indexed${ nbsp }${ ndash } ` }
+  //     We{ apos }re indexing this chain right now. Some of the counts may be inaccurate.
+  //   </Text>
+  // );
 
   const trigger = (
     <Flex
-      px={ 1 }
+      px={1}
       bg={{ base: 'blackAlpha.50', _dark: 'whiteAlpha.100' }}
       borderRadius="sm"
       alignItems="center"
@@ -71,20 +71,17 @@ const IntTxsIndexingStatus = () => {
       color="green.400"
       _hover={{ color: 'hover' }}
     >
-      <IconSvg name="info" boxSize={ 5 }/>
-      { data.indexed_internal_transactions_ratio && (
-        <Text fontWeight={ 600 } textStyle="xs" color="inherit">
-          { Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) + '%' }
+      <IconSvg name="info" boxSize={5} />
+      {data.indexed_internal_transactions_ratio && (
+        <Text fontWeight={600} textStyle="xs" color="inherit">
+          {Math.floor(Number(data.indexed_internal_transactions_ratio) * 100) + '%'}
         </Text>
-      ) }
+      )}
     </Flex>
   );
 
-  return (
-    <Tooltip content={ hint } interactive positioning={{ placement: 'bottom-start' }} lazyMount>
-      { trigger }
-    </Tooltip>
-  );
+ return trigger;
+
 };
 
 export default IntTxsIndexingStatus;
