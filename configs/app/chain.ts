@@ -23,7 +23,7 @@ const verificationType: NetworkVerificationType = (() => {
 const rpcUrls = ['https://node1.nowa.finance'];
 
 const chain = Object.freeze({
-  id: getEnvValue('NEXT_PUBLIC_NETWORK_ID'),
+  id: '262144',
   name: getEnvValue('NEXT_PUBLIC_NETWORK_NAME'),
   shortName: getEnvValue('NEXT_PUBLIC_NETWORK_SHORT_NAME'),
   currency: {
