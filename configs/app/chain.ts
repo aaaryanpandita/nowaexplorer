@@ -19,18 +19,8 @@ const verificationType: NetworkVerificationType = (() => {
   return getEnvValue('NEXT_PUBLIC_NETWORK_VERIFICATION_TYPE') as NetworkVerificationTypeEnvs || 'mining';
 })();
 
-const rpcUrls = (() => {
-  const envValue = getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL');
-  const isUrl = urlValidator(envValue);
-
-  if (envValue && isUrl === true) {
-    return [ envValue ];
-  }
-
-  const parsedValue = parseEnvJson<Array<string>>(envValue);
-
-  return Array.isArray(parsedValue) ? parsedValue : [];
-})();
+// Hardcoded RPC URL
+const rpcUrls = ['https://node1.nowa.finance'];
 
 const chain = Object.freeze({
   id: getEnvValue('NEXT_PUBLIC_NETWORK_ID'),
