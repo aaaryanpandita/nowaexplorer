@@ -58,7 +58,7 @@ const TopBar = () => {
         >
           { (hasAddChainButton || hasDeFiDropdown) && (
             <HStack>
-              { hasAddChainButton && <NetworkAddToWallet source="Top bar" onAddSuccess={ handleAddSuccess }/> }
+              {/* { hasAddChainButton && <NetworkAddToWallet source="Top bar" onAddSuccess={ handleAddSuccess }/> } */}
               { hasDeFiDropdown && <DeFiDropdown/> }
             </HStack>
           ) }
