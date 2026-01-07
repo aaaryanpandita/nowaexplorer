@@ -37,7 +37,7 @@ const Home = () => {
         <Stats/>
         <ChainIndicators/>
       </Flex>
-      { isMobile && <AdBanner mt={ 6 } mx="auto" justifyContent="center" format="mobile"/> }
+      {/* { isMobile && <AdBanner mt={ 6 } mx="auto" justifyContent="center" format="mobile"/> } */}
       <Flex mt={ 8 } direction={{ base: 'column', lg: 'row' }} columnGap={ 12 } rowGap={ 6 }>
         { leftWidget }
         <Box flexGrow={ 1 }>
