@@ -1,8 +1,8 @@
 async function headers() {
   const csp = [
     'default-src \'self\'',
-    'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\'',
-    'style-src \'self\' \'unsafe-inline\' fonts.gstatic.com',
+    'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' cdn.jsdelivr.net cdnjs.cloudflare.com',
+    'style-src \'self\' \'unsafe-inline\' fonts.gstatic.com fonts.googleapis.com cdn.jsdelivr.net cdnjs.cloudflare.com',
     'img-src \'self\' data: https:',
     'font-src \'self\' fonts.gstatic.com',
     [
