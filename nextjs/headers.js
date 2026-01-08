@@ -5,14 +5,15 @@ async function headers() {
     'script-src-elem \'self\' \'unsafe-inline\' cdn.jsdelivr.net cdnjs.cloudflare.com',
     'style-src \'self\' \'unsafe-inline\' fonts.gstatic.com fonts.googleapis.com cdn.jsdelivr.net cdnjs.cloudflare.com',
     'img-src \'self\' data: https:',
-    'font-src \'self\' fonts.gstatic.com cdn.jsdelivr.net',
-    'worker-src \'self\' blob: cdn.jsdelivr.net', // Monaco workers ke liye
+    'font-src \'self\' fonts.gstatic.com cdn.jsdelivr.net cdnjs.cloudflare.com data:',  // cdnjs.cloudflare.com add kiya
+    'worker-src \'self\' blob: cdn.jsdelivr.net',
+    'child-src \'self\' blob:',  // Yeh Monaco ke liye important hai
     [
       'connect-src \'self\'',
       'https://api.anthropic.com',
       'https://prover.nowa.finance',
       'https://apiexplorer.nowa.finance',
-      'https://explorer.nowa.finance',  // Yeh add karo
+      'https://explorer.nowa.finance',
       'wss://apiexplorer.nowa.finance',
       'https://infragrid.v.network',
       'raw.githubusercontent.com',
@@ -25,8 +26,9 @@ async function headers() {
       'app.specify.sh',
       'https://delegated-ipfs.dev',
       'https://trustless-gateway.link',
-      'cdn.jsdelivr.net',  // Monaco resources ke liye
-      'static.cloudflareinsights.com',  // Cloudflare ke liye
+      'cdn.jsdelivr.net',
+      'cdnjs.cloudflare.com',  // Yeh bhi add karo
+      'static.cloudflareinsights.com',
     ].join(' '),
   ].join('; ');
   
@@ -52,7 +54,11 @@ async function headers() {
         },
         {
           key: 'Cross-Origin-Opener-Policy',
-          value: 'unsafe-none',  
+          value: 'same-origin-allow-popups', 
+        },
+        {
+          key: 'Cross-Origin-Embedder-Policy',  
+          value: 'credentialless',
         },
         {
           key: 'Referrer-Policy',

@@ -87,60 +87,7 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
     instance?.editor.setTheme(colorMode === 'light' ? 'blockscout-light' : 'blockscout-dark');
   }, [ colorMode, instance?.editor ]);
 
-  const handleEditorDidMount = React.useCallback((editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => {
-    setInstance(monaco);
-    setEditor(editor);
-
-    monaco.editor.defineTheme('blockscout-light', themes.light);
-    monaco.editor.defineTheme('blockscout-dark', themes.dark);
-    monaco.editor.setTheme(colorMode === 'light' ? 'blockscout-light' : 'blockscout-dark');
-
-    if (editorLanguage === 'scilla') {
-      monaco.languages.register({ id: editorLanguage });
-      monaco.languages.setMonarchTokensProvider(editorLanguage, defScilla);
-      monaco.languages.setLanguageConfiguration(editorLanguage, configScilla);
-    }
-
-    if (editorLanguage === 'geas') {
-      monaco.languages.register({ id: editorLanguage });
-      monaco.languages.setMonarchTokensProvider(editorLanguage, defGeas);
-      monaco.languages.setLanguageConfiguration(editorLanguage, configGeas);
-    }
-
-    const loadedModels = monaco.editor.getModels();
-    const loadedModelsPaths = loadedModels.map((model) => model.uri.path);
-    const newModels = data.slice(1)
-      .filter((file) => !loadedModelsPaths.includes(file.file_path))
-      .map((file) => monaco.editor.createModel(file.source_code, editorLanguage, monaco.Uri.parse(file.file_path)));
-
-    if (language === 'solidity') {
-      loadedModels.concat(newModels)
-        .forEach((model) => {
-          contractName && mainFile === model.uri.path && addMainContractCodeDecoration(model, contractName, editor);
-          addFileImportDecorations(model);
-          libraries?.length && addExternalLibraryWarningDecoration(model, libraries);
-        });
-    }
-
-    editor.addAction({
-      id: 'close-tab',
-      label: 'Close current tab',
-      keybindings: [
-        monaco.KeyMod.Alt | monaco.KeyCode.KeyW,
-      ],
-      contextMenuGroupId: 'navigation',
-      contextMenuOrder: 1.7,
-      run: function(editor) {
-        const model = editor.getModel();
-        const path = model?.uri.path;
-        if (path) {
-          handleTabClose(path, true);
-        }
-      },
-    });
-  // componentDidMount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ ]);
+ 
 
   const handleSelectFile = React.useCallback((index: number, lineNumber?: number) => {
     setIndex(index);
@@ -177,6 +124,78 @@ const CodeEditor = ({ data, remappings, libraries, language, mainFile, contractN
       return prev;
     });
   }, [ data, index ]);
+
+  const handleEditorDidMount = React.useCallback((editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => {
+  setInstance(monaco);
+  setEditor(editor);
+  
+  // Monaco environment explicitly set karo
+  (window as any).MonacoEnvironment = {
+    getWorkerUrl: function(_moduleId: string, label: string) {
+      if (label === 'json') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs/language/json/json.worker.js';
+      }
+      if (label === 'css' || label === 'scss' || label === 'less') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs/language/css/css.worker.js';
+      }
+      if (label === 'html' || label === 'handlebars' || label === 'razor') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs/language/html/html.worker.js';
+      }
+      if (label === 'typescript' || label === 'javascript') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs/language/typescript/ts.worker.js';
+      }
+      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs/editor/editor.worker.js';
+    }
+  };
+
+  monaco.editor.defineTheme('blockscout-light', themes.light);
+  monaco.editor.defineTheme('blockscout-dark', themes.dark);
+  monaco.editor.setTheme(colorMode === 'light' ? 'blockscout-light' : 'blockscout-dark');
+
+  if (editorLanguage === 'scilla') {
+    monaco.languages.register({ id: editorLanguage });
+    monaco.languages.setMonarchTokensProvider(editorLanguage, defScilla);
+    monaco.languages.setLanguageConfiguration(editorLanguage, configScilla);
+  }
+
+  if (editorLanguage === 'geas') {
+    monaco.languages.register({ id: editorLanguage });
+    monaco.languages.setMonarchTokensProvider(editorLanguage, defGeas);
+    monaco.languages.setLanguageConfiguration(editorLanguage, configGeas);
+  }
+
+  const loadedModels = monaco.editor.getModels();
+  const loadedModelsPaths = loadedModels.map((model) => model.uri.path);
+  const newModels = data.slice(1)
+    .filter((file) => !loadedModelsPaths.includes(file.file_path))
+    .map((file) => monaco.editor.createModel(file.source_code, editorLanguage, monaco.Uri.parse(file.file_path)));
+
+  if (language === 'solidity') {
+    loadedModels.concat(newModels)
+      .forEach((model) => {
+        contractName && mainFile === model.uri.path && addMainContractCodeDecoration(model, contractName, editor);
+        addFileImportDecorations(model);
+        libraries?.length && addExternalLibraryWarningDecoration(model, libraries);
+      });
+  }
+
+  editor.addAction({
+    id: 'close-tab',
+    label: 'Close current tab',
+    keybindings: [
+      monaco.KeyMod.Alt | monaco.KeyCode.KeyW,
+    ],
+    contextMenuGroupId: 'navigation',
+    contextMenuOrder: 1.7,
+    run: function(editor) {
+      const model = editor.getModel();
+      const path = model?.uri.path;
+      if (path) {
+        handleTabClose(path, true);
+      }
+    },
+  });
+}, [ colorMode, editorLanguage, data, language, contractName, mainFile, libraries, handleTabClose ]);
 
   const handleClick = React.useCallback((event: React.MouseEvent) => {
     if (!isMetaPressed && !isMobile) {
