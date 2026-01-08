@@ -2,13 +2,17 @@ async function headers() {
   const csp = [
     'default-src \'self\'',
     'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' cdn.jsdelivr.net cdnjs.cloudflare.com',
+    'script-src-elem \'self\' \'unsafe-inline\' cdn.jsdelivr.net cdnjs.cloudflare.com',
     'style-src \'self\' \'unsafe-inline\' fonts.gstatic.com fonts.googleapis.com cdn.jsdelivr.net cdnjs.cloudflare.com',
     'img-src \'self\' data: https:',
-    'font-src \'self\' fonts.gstatic.com',
+    'font-src \'self\' fonts.gstatic.com cdn.jsdelivr.net',
+    'worker-src \'self\' blob: cdn.jsdelivr.net', // Monaco workers ke liye
     [
       'connect-src \'self\'',
+      'https://api.anthropic.com',
       'https://prover.nowa.finance',
       'https://apiexplorer.nowa.finance',
+      'https://explorer.nowa.finance',  // Yeh add karo
       'wss://apiexplorer.nowa.finance',
       'https://infragrid.v.network',
       'raw.githubusercontent.com',
@@ -21,9 +25,11 @@ async function headers() {
       'app.specify.sh',
       'https://delegated-ipfs.dev',
       'https://trustless-gateway.link',
+      'cdn.jsdelivr.net',  // Monaco resources ke liye
+      'static.cloudflareinsights.com',  // Cloudflare ke liye
     ].join(' '),
   ].join('; ');
-
+  
   return [
     {
       source: '/:path*',
@@ -46,7 +52,7 @@ async function headers() {
         },
         {
           key: 'Cross-Origin-Opener-Policy',
-          value: 'same-origin',
+          value: 'unsafe-none',  
         },
         {
           key: 'Referrer-Policy',
@@ -60,5 +66,4 @@ async function headers() {
     },
   ];
 }
-
 module.exports = headers;
