@@ -41,10 +41,10 @@ const NetworkLogo = ({ className }: Props) => {
       <Image
         h="24px"
         skeletonWidth="120px"
-        src="https://migration.nowa.finance/assets/newLogo-LUy-Kah8.svg"
-        alt={`${config.chain.name} network logo`}
+        src="/icons/Logo.svg"   // ✅ Ye sahi hai
+        alt="nowa Logo"          // ✅ Ye bhi specify karo clearly
         objectFit="contain"
-        objectPosition="left"      />
+        objectPosition="left" />
     </chakra.a>
   );
 };

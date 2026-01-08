@@ -21,9 +21,9 @@ const PageMetadata = <Pathname extends Route['pathname']>(props: Props<Pathname>
       <title>{title}</title>
       <meta name="description" content={description} />
 
-      <link rel="icon" href="/icons/nowa.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/icons/nowa.svg" />
-      <link rel="shortcut icon" href="/icons/nowa.svg" />
+      <link rel="icon" href="/nowa.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/nowa.svg" />
+      <link rel="shortcut icon" href="/nowa.svg" />
       {canonical && <link rel="canonical" href={canonical} />}
 
       { /* OG TAGS */}
