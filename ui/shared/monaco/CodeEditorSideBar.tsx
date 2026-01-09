@@ -14,17 +14,18 @@ import CodeEditorSearch from './CodeEditorSearch';
 import useThemeColors from './utils/useThemeColors';
 
 interface Props {
-  monaco: Monaco | undefined;
-  editor: monaco.editor.IStandaloneCodeEditor | undefined;
+   monaco?: Monaco; // Make optional
+  editor?: monaco.editor.IStandaloneCodeEditor; // Make optional
   data: Array<File>;
   onFileSelect: (index: number, lineNumber?: number) => void;
   selectedFile: string;
   mainFile?: string;
+  
 }
 
 export const CONTAINER_WIDTH = 250;
 
-const CodeEditorSideBar = ({ onFileSelect, data, monaco, editor, selectedFile, mainFile }: Props) => {
+const CodeEditorSideBar = ({ data, onFileSelect, selectedFile, mainFile, monaco, editor }: Props) => {
 
   const [ isStuck, setIsStuck ] = React.useState(false);
   const [ isDrawerOpen, setIsDrawerOpen ] = React.useState(false);
