@@ -27,6 +27,8 @@ import AppErrorGlobalContainer from 'ui/shared/AppError/AppErrorGlobalContainer'
 import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
 import Layout from 'ui/shared/layout/Layout';
 import Web3ModalProvider from 'ui/shared/Web3ModalProvider';
+import '../lib/monaco-config'; // ⬅️ THIS MUST BE FIRST!
+
 
 import 'lib/setLocale';
 // import 'focus-visible/dist/focus-visible';

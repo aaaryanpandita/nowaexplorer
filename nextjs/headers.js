@@ -1,13 +1,13 @@
 async function headers() {
   const csp = [
     'default-src \'self\'',
-    'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' cdn.jsdelivr.net cdnjs.cloudflare.com',
+    'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\' \'wasm-unsafe-eval\' cdn.jsdelivr.net cdnjs.cloudflare.com',
     'script-src-elem \'self\' \'unsafe-inline\' cdn.jsdelivr.net cdnjs.cloudflare.com',
     'style-src \'self\' \'unsafe-inline\' fonts.gstatic.com fonts.googleapis.com cdn.jsdelivr.net cdnjs.cloudflare.com',
-    'img-src \'self\' data: https:',
-    'font-src \'self\' fonts.gstatic.com cdn.jsdelivr.net cdnjs.cloudflare.com data:',  // cdnjs.cloudflare.com add kiya
-    'worker-src \'self\' blob: cdn.jsdelivr.net',
-    'child-src \'self\' blob:',  // Yeh Monaco ke liye important hai
+    'img-src \'self\' data: https: blob:',
+    'font-src \'self\' fonts.gstatic.com cdn.jsdelivr.net cdnjs.cloudflare.com data:',  
+    'worker-src \'self\' blob: data: cdn.jsdelivr.net', 
+    'child-src \'self\' blob: data:', 
     [
       'connect-src \'self\'',
       'https://api.anthropic.com',
@@ -27,8 +27,10 @@ async function headers() {
       'https://delegated-ipfs.dev',
       'https://trustless-gateway.link',
       'cdn.jsdelivr.net',
-      'cdnjs.cloudflare.com',  // Yeh bhi add karo
+      'cdnjs.cloudflare.com',  
       'static.cloudflareinsights.com',
+      'blob:', 
+      'data:', 
     ].join(' '),
   ].join('; ');
   
