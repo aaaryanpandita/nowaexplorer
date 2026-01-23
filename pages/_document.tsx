@@ -59,13 +59,11 @@ class MyDocument extends Document {
             </>
           )}
 
-          { /* FAVICON */}
-          <link rel="icon" href="/icons/nowa.svg" type="image/svg+xml" />
-          <link rel="shortcut icon" href="/icons/nowa.svg" />
-          <link rel="apple-touch-icon" href="/icons/nowa.svg" />
-
-          <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon-180x180.png" />
-          <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-chrome-192x192.png" />
+          { /* ✅ FAVICON - Use nowa.svg from public folder root */}
+          <link rel="icon" href="/nowa.svg?v=2" type="image/svg+xml" />
+          <link rel="alternate icon" href="/nowa.png?v=2" type="image/png" />
+          <link rel="apple-touch-icon" href="/nowa.svg?v=2" />
+          
           <link rel="preload" as="image" href={svgSprite.href} />
         </Head>
         <body>

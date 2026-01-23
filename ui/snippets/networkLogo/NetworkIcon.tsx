@@ -32,17 +32,16 @@ const NetworkIcon = ({ className }: Props) => {
 
   return (
     <chakra.a
-      className={ className }
-      href={ route({ pathname: '/' }) }
+      className={className}
+      href={route({ pathname: '/' })}
       aria-label="Link to main page"
     >
       <Image
-        w="30px"
-        h="30px"
-        src={ iconSrc }
-        alt={ `${ config.chain.name } network icon` }
-        fallback={ <IconFallback/> }
-        filter={{ _dark: !config.UI.navigation.icon.dark ? INVERT_FILTER : undefined }}
+        w="80px"
+        h="80px"
+        src="/icons/Logo.svg"
+        alt="nowa Logo" 
+        fallback={<IconFallback />}
         objectFit="contain"
         objectPosition="left"
       />

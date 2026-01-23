@@ -5,7 +5,7 @@ import { test, expect } from 'playwright/lib';
 
 import NetworkLogo from './NetworkLogo';
 
-const LOGO_URL = 'https://localhost:3000/my-logo.png';
+const LOGO_URL = 'https://localhost:3000/nowa.svg';
 
 test.use({ viewport: { width: 120, height: 30 } });
 

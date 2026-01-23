@@ -73,6 +73,13 @@ export default function useNavItems(): ReturnType {
       isActive: pathname === '/internal-txs',
     };
 
+       const customValidatorNav: NavItem = {
+      text: 'Validator',
+      nextRoute: { pathname: '/validator' as const },
+      icon: 'validator',
+      isActive: pathname.startsWith('/validator'),
+    };
+
 
 
     const propertyBatches: NavItem = {
@@ -375,6 +382,7 @@ export default function useNavItems(): ReturnType {
       } : null,
       statsNavItem,
       apiNavItem,
+      customValidatorNav,
       {
         text: 'Other',
         icon: 'gear',

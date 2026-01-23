@@ -4,7 +4,7 @@ import chain from '../chain';
 import { getEnvValue } from '../utils';
 import opSuperchain from './opSuperchain';
 
-const walletConnectProjectId = '46d3491db08a993aee5dc069f774f048';
+const walletConnectProjectId = "46d3491db08a993aee5dc069f774f048";
 
 const title = 'Blockchain interaction (writing to contract, etc.)';
 
