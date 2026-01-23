@@ -37,8 +37,8 @@ const NetworkIcon = ({ className }: Props) => {
       aria-label="Link to main page"
     >
       <Image
-        w="80px"
-        h="80px"
+        w="51px"
+        h="51x"
         src="/icons/Logo.svg"
         alt="nowa Logo" 
         fallback={<IconFallback />}
@@ -50,3 +50,5 @@ const NetworkIcon = ({ className }: Props) => {
 };
 
 export default React.memo(chakra(NetworkIcon));
+
+
