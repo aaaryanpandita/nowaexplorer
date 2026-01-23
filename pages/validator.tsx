@@ -154,7 +154,7 @@ const ValidatorPage = () => {
                 fontWeight: '600',
                 textAlign: 'right'
               }}>
-                Tokens (NOWA)
+                Total Stake (NOWA)
               </th>
             </tr>
           </thead>
