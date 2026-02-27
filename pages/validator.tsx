@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import validatorAPI, { type Validator } from 'types/api/validatorAPI';
 
+const useIsDarkMode = () => {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return document.documentElement.classList.contains('dark');
+  });
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+};
+
 const ValidatorPage = () => {
   const [validators, setValidators] = useState<Validator[]>([]);
   const [loading, setLoading] = useState(true);
@@ -9,10 +26,24 @@ const ValidatorPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
+  const isDark = useIsDarkMode();
+
+  const c = {
+    headingColor: isDark ? '#fff' : '#1a1a1a',
+    tableBg:      isDark ? '#0d0d0d' : '#ffffff',
+    theadBg:      isDark ? '#1a1a1a' : '#f5f5f5',
+    thColor:      isDark ? '#aaa' : '#444',
+    rowBorder:    isDark ? '#1a1a1a' : '#e8e8e8',
+    addressColor: isDark ? '#888' : '#666',
+    valueColor:   isDark ? '#fff' : '#111',
+    spinnerBorder:isDark ? '#333' : '#ddd',
+    spinnerTop:   isDark ? '#fff' : '#333',
+    loadingText:  isDark ? '#888' : '#666',
+  };
+
   const fetchValidators = async (paginationKey: string | null = null) => {
     setLoading(true);
     setError(null);
-    
     try {
       const data = await validatorAPI.getValidators(itemsPerPage, paginationKey);
       setValidators(data.validators || []);
@@ -43,11 +74,7 @@ const ValidatorPage = () => {
 
   if (error) {
     return (
-      <div style={{ 
-        padding: '20px',
-        maxWidth: '100%',
-        width: '100%'
-      }}>
+      <div style={{ padding: '20px', maxWidth: '100%', width: '100%' }}>
         <div style={{
           backgroundColor: '#1a0000',
           border: '1px solid #ff6b6b',
@@ -71,24 +98,17 @@ const ValidatorPage = () => {
         justifyContent: 'center',
         minHeight: '400px'
       }}>
-        {/* Spinner */}
         <div style={{
           width: '50px',
           height: '50px',
-          border: '4px solid #1a1a1a',
-          borderTop: '4px solid #fff',
+          border: `4px solid ${c.spinnerBorder}`,
+          borderTop: `4px solid ${c.spinnerTop}`,
           borderRadius: '50%',
           animation: 'spin 1s linear infinite'
         }}></div>
-        
-        <p style={{ 
-          color: '#888',
-          marginTop: '20px',
-          fontSize: '14px'
-        }}>
+        <p style={{ color: c.loadingText, marginTop: '20px', fontSize: '14px' }}>
           Loading validators...
         </p>
-
         <style jsx>{`
           @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -106,25 +126,17 @@ const ValidatorPage = () => {
       maxWidth: '100%',
       boxSizing: 'border-box'
     }}>
-      {/* Header */}
       <div style={{ marginBottom: '20px' }}>
         <h2 style={{ 
           fontSize: '30px',
           marginBottom: '8px',
-          color: '#fff',
+          color: c.headingColor,
           fontWeight: '800'
         }}>
           Validators
         </h2>
-        {/* <p style={{ 
-          fontSize: '14px',
-          color: '#888'
-        }}>
-          Validator data on NOWA chain
-        </p> */}
       </div>
 
-      {/* Table Container with Horizontal Scroll */}
       <div style={{
         width: '100%',
         overflowX: 'auto',
@@ -135,25 +147,15 @@ const ValidatorPage = () => {
           width: '100%',
           minWidth: '600px',
           borderCollapse: 'collapse',
-          backgroundColor: '#0d0d0d',
+          backgroundColor: c.tableBg,
           fontSize: '14px'
         }}>
           <thead>
-            <tr style={{ 
-              backgroundColor: '#1a1a1a',
-              textAlign: 'left'
-            }}>
-              <th style={{ 
-                padding: '12px 16px',
-                fontWeight: '600'
-              }}>
+            <tr style={{ backgroundColor: c.theadBg, textAlign: 'left' }}>
+              <th style={{ padding: '12px 16px', fontWeight: '600', color: c.thColor }}>
                 Operator Address
               </th>
-              <th style={{ 
-                padding: '12px 16px',
-                fontWeight: '600',
-                textAlign: 'right'
-              }}>
+              <th style={{ padding: '12px 16px', fontWeight: '600', textAlign: 'right', color: c.thColor }}>
                 Total Stake (NOWA)
               </th>
             </tr>
@@ -162,13 +164,11 @@ const ValidatorPage = () => {
             {validators.map((validator) => (
               <tr 
                 key={validator.operator_address}
-                style={{ 
-                  borderBottom: '1px solid #1a1a1a'
-                }}
+                style={{ borderBottom: `1px solid ${c.rowBorder}` }}
               >
                 <td style={{ padding: '12px 16px' }}>
                   <span style={{ 
-                    color: '#888',
+                    color: c.addressColor,
                     fontSize: '13px',
                     fontFamily: 'monospace',
                     wordBreak: 'break-all'
@@ -179,7 +179,7 @@ const ValidatorPage = () => {
                 <td style={{ 
                   padding: '12px 16px',
                   textAlign: 'right',
-                  color: '#fff',
+                  color: c.valueColor,
                   fontFamily: 'monospace',
                   whiteSpace: 'nowrap'
                 }}>
@@ -216,14 +216,9 @@ const ValidatorPage = () => {
         >
           Previous
         </button>
-
-        <span style={{ 
-          color: '#888',
-          padding: '0 8px'
-        }}>
+        <span style={{ color: '#888', padding: '0 8px' }}>
           Page {currentPage}
         </span>
-
         <button 
           onClick={() => handlePageClick(currentPage + 1)}
           disabled={!nextKey}

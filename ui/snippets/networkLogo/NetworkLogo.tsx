@@ -27,6 +27,8 @@ type Props = {
 };
 
 const NetworkLogo = ({ className }: Props) => {
+  const logoSrc = useColorModeValue('/icons/LogoLight.svg', '/icons/Logo.svg');
+
   const filterValue = useColorModeValue(
     undefined,
     !config.UI.navigation.logo.dark ? INVERT_FILTER : undefined
@@ -41,7 +43,7 @@ const NetworkLogo = ({ className }: Props) => {
       <Image
         h="24px"
         skeletonWidth="120px"
-        src="/icons/Logo.svg"   // ✅ Ye sahi hai
+        src={logoSrc}   // ✅ Ye sahi hai
         alt="nowa Logo"          // ✅ Ye bhi specify karo clearly
         objectFit="contain"
         objectPosition="left" />
