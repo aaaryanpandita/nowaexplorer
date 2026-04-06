@@ -39,14 +39,18 @@ const NetworkLogo = ({ className }: Props) => {
       className={className}
       href={route({ pathname: '/' })}
       aria-label="Link to main page"
+      display="flex"
+      alignItems="center"
     >
       <Image
-        h="24px"
+        h={{ base: '32px', lg: '40px' }}
+        w={{ base: 'auto', lg: 'auto' }}
         skeletonWidth="120px"
-        src={logoSrc}   // ✅ Ye sahi hai
-        alt="nowa Logo"          // ✅ Ye bhi specify karo clearly
+        src={logoSrc}
+        alt="nowa Logo"
         objectFit="contain"
-        objectPosition="left" />
+        objectPosition="center"
+      />
     </chakra.a>
   );
 };

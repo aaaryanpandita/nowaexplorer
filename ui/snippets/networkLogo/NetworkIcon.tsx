@@ -14,8 +14,8 @@ const IconFallback = () => {
   return (
     <IconSvg
       name="networks/icon-placeholder"
-      w="30px"
-      h="30px"
+      w="40px"
+      h="40px"
       color={{ base: 'blue.600', _dark: 'white' }}
       aria-label="Network icon placeholder"
     />
@@ -37,10 +37,10 @@ const NetworkIcon = ({ className }: Props) => {
       aria-label="Link to main page"
     >
       <Image
-        w="51px"
-        h="51x"
+        w="70px"
+        h="70px"
         src="/icons/Logo.svg"
-        alt="nowa Logo" 
+        alt="nowa Logo"
         fallback={<IconFallback />}
         objectFit="contain"
         objectPosition="left"

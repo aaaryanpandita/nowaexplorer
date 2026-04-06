@@ -64,15 +64,15 @@ const HeroBanner = () => {
         <Flex mb={{ base: 2, lg: 3 }} justifyContent="space-between" alignItems="center" columnGap={ 2 }>
           <Heading
             as="h1"
-            fontSize={{ base: '18px', lg: '30px' }}
-            lineHeight={{ base: '24px', lg: '36px' }}
+            fontSize={{ base: '15px', lg: '20px' }}
+            lineHeight={{ base: '15px', lg: '26px' }}
             fontWeight={{ base: 500, lg: 700 }}
             color={ textColor }
           >
             {
               config.meta.seo.enhancedDataEnabled ?
-                `${ config.chain.name } blockchain explorer` :
-                `${ config.chain.name } explorer`
+                `${ config.chain.name } BlockChain Explorer` :
+                `${ config.chain.name } BlockChain Explorer`
             }
           </Heading>
           { config.UI.navigation.layout === 'vertical' && (

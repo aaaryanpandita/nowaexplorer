@@ -23,31 +23,31 @@ const NavigationDesktop = () => {
       <Flex
         display={{ base: 'none', lg: 'flex' }}
         alignItems="center"
-        px={ 6 }
-        py={ 2 }
-        maxW={ `${ CONTENT_MAX_WIDTH }px` }
+        px={6}
+        py={3}
+        maxW={`${CONTENT_MAX_WIDTH}px`}
         m="0 auto"
       >
-        <NetworkLogo/>
-        <TestnetBadge ml={ 3 }/>
-        <RollupStageBadge ml={ 3 }/>
-        <chakra.nav ml="auto" mr={ config.features.account.isEnabled || config.features.blockchainInteraction.isEnabled ? 8 : 0 }>
-          <Flex as="ul" columnGap={ 3 }>
-            { mainNavItems.map((item) => {
+        <NetworkLogo h="40px" />
+        <TestnetBadge ml={3} />
+        <RollupStageBadge ml={3} />
+        <chakra.nav ml="auto" mr={config.features.account.isEnabled || config.features.blockchainInteraction.isEnabled ? 8 : 0}>
+          <Flex as="ul" columnGap={3}>
+            {mainNavItems.map((item) => {
               if (isGroupItem(item)) {
-                return <NavLinkGroup key={ item.text } item={ item }/>;
+                return <NavLinkGroup key={item.text} item={item} />;
               } else {
-                return <NavLink key={ item.text } item={ item } noIcon py={ 1.5 } w="fit-content"/>;
+                return <NavLink key={item.text} item={item} noIcon py={1.5} w="fit-content" />;
               }
-            }) }
+            })}
           </Flex>
         </chakra.nav>
-        <Flex gap={ 2 }>
-          <NavigationPromoBanner/>
-          { config.features.rewards.isEnabled && <RewardsButton size="sm"/> }
+        <Flex gap={2}>
+          <NavigationPromoBanner />
+          {config.features.rewards.isEnabled && <RewardsButton size="sm" />}
           {
-            (config.features.account.isEnabled && <UserProfileDesktop buttonSize="sm"/>) ||
-            (config.features.blockchainInteraction.isEnabled && <UserWalletDesktop buttonSize="sm"/>)
+            (config.features.account.isEnabled && <UserProfileDesktop buttonSize="sm" />) ||
+            (config.features.blockchainInteraction.isEnabled && <UserWalletDesktop buttonSize="sm" />)
           }
         </Flex>
       </Flex>
