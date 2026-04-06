@@ -62,7 +62,6 @@ const Footer = () => {
       text: 'Discord',
       url: 'https://discord.gg/blockscout',
     },
-  
     {
       icon: 'donate' as const,
       iconSize: '20px',
@@ -75,11 +74,9 @@ const Footer = () => {
     if (config.UI.footer.frontendVersion) {
       return <Link href={ FRONT_VERSION_URL } external noIcon>{ config.UI.footer.frontendVersion }</Link>;
     }
-
     if (config.UI.footer.frontendCommit) {
       return <Link href={ FRONT_COMMIT_URL } external noIcon>{ config.UI.footer.frontendCommit }</Link>;
     }
-
     return null;
   })();
 
@@ -95,14 +92,12 @@ const Footer = () => {
 
   const colNum = isPlaceholderData ? 1 : Math.min(linksData?.length || Infinity, MAX_LINKS_COLUMNS) + 1;
 
-  const renderNetworkInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
+ const renderNetworkInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
     return (
       <Flex
         gridArea={ gridArea }
         flexWrap="wrap"
-        justifyContent="flex-start"
-        columnGap={ 3 }
-        rowGap={ 2 }
+        alignItems="center"
         mb={{ base: 5, lg: 10 }}
         _empty={{ display: 'none' }}
       >
@@ -112,7 +107,42 @@ const Footer = () => {
     );
   }, []);
 
- 
+  // Social icons alag component
+  const renderSocialIcons = React.useCallback((gridArea?: GridProps['gridArea']) => {
+    return (
+      <Flex
+        gridArea={ gridArea }
+        alignItems="center"
+        justifyContent="flex-end"   // ← right end pe
+        gap={ 4 }
+        mb={{ base: 5, lg: 10 }}
+      >
+        <Link href="https://www.instagram.com/nowatoken" external noIcon aria-label="Instagram">
+          <Box as="svg" boxSize="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+            color="gray.500" _hover={{ color: 'pink.400' }} transition="color 0.2s">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </Box>
+        </Link>
+
+        <Link href="https://x.com/Nowatoken" external noIcon aria-label="X">
+          <Box as="svg" boxSize="20px" viewBox="0 0 24 24" fill="currentColor"
+            color="gray.500" _hover={{ color: 'blue.400' }} transition="color 0.2s">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </Box>
+        </Link>
+
+        <Link href="https://t.me/nowatoken" external noIcon aria-label="Telegram">
+          <Box as="svg" boxSize="20px" viewBox="0 0 24 24" fill="currentColor"
+            color="gray.500" _hover={{ color: 'cyan.400' }} transition="color 0.2s">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.7 8.02c-.12.58-.46.72-.93.45l-2.57-1.9-1.24 1.19c-.14.14-.26.26-.53.26l.19-2.63 4.83-4.36c.21-.19-.05-.29-.32-.1L7.9 14.47l-2.52-.79c-.55-.17-.56-.55.12-.82l9.86-3.8c.46-.17.86.11.28.74z"/>
+          </Box>
+        </Link>
+      </Flex>
+    );
+  }, []);
+
   const containerProps: HTMLChakraProps<'div'> = {
     as: 'footer',
     borderTopWidth: '1px',
@@ -132,7 +162,6 @@ const Footer = () => {
     if (!config.services.reCaptchaV2.siteKey) {
       return <Box gridArea={ gridArea }/>;
     }
-
     return (
       <Box gridArea={ gridArea } textStyle="xs" mt={ 6 }>
         <span>This site is protected by reCAPTCHA and the Google </span>
@@ -143,17 +172,15 @@ const Footer = () => {
       </Box>
     );
   };
-
+// config.UI.footer.links wala return:
   if (config.UI.footer.links) {
     return (
       <Box { ...containerProps }>
         <Grid { ...contentProps }>
           <div>
             { renderNetworkInfo() }
-           
             { renderRecaptcha() }
           </div>
-
           <Grid
             gap={{ base: 6, lg: colNum === MAX_LINKS_COLUMNS + 1 ? 2 : 8, xl: 12 }}
             gridTemplateColumns={{
@@ -185,43 +212,22 @@ const Footer = () => {
     );
   }
 
+  // Default return — gridTemplateAreas mein "social" area add karo:
   return (
     <Box { ...containerProps }>
       <Grid
         { ...contentProps }
         gridTemplateAreas={{
           lg: `
-          "network links-top"
-          "info links-bottom"
-          "recaptcha links-bottom"
+          "network social"
+          "info ."
+          "recaptcha ."
         `,
         }}
       >
-
         { renderNetworkInfo({ lg: 'network' }) }
-       
+        { renderSocialIcons({ lg: 'social' }) }
         { renderRecaptcha({ lg: 'recaptcha' }) }
-
-        {/* <Grid
-          gridArea={{ lg: 'links-bottom' }}
-          gap={ 1 }
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, 160px)',
-            lg: 'repeat(2, 160px)',
-            xl: 'repeat(3, 160px)',
-          }}
-          gridTemplateRows={{
-            base: 'auto',
-            lg: 'repeat(3, auto)',
-            xl: 'repeat(2, auto)',
-          }}
-          gridAutoFlow={{ base: 'row', lg: 'column' }}
-          alignContent="start"
-          justifyContent={{ lg: 'flex-end' }}
-          mt={{ base: 8, lg: 0 }}
-        >
-          { BLOCKSCOUT_LINKS.map(link => <FooterLinkItem { ...link } key={ link.text }/>) }
-        </Grid> */}
       </Grid>
     </Box>
   );

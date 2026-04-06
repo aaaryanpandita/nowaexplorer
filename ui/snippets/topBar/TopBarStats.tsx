@@ -59,6 +59,7 @@ const TopBarStats = () => {
       <Flex
         alignItems="center"
         fontWeight={ 500 }
+        gap={ 3 }
       >
         { hasNativeCoinPrice && (
           <Flex columnGap={ 1 }>
@@ -83,8 +84,25 @@ const TopBarStats = () => {
             </Skeleton>
           </Flex>
         ) }
+
+
+         <chakra.span
+          px={ 2 }
+          py={ 0.5 }
+          borderRadius="md"
+          border="1px solid"
+          borderColor="green.400"
+          color="green.400"
+          fontSize="xs"
+          fontWeight={ 600 }
+          letterSpacing="0.5px"
+          pointerEvents="none"
+          userSelect="none"
+        >
+          Testnet
+        </chakra.span>
         { (hasNativeCoinPrice || hasSecondaryCoinPrice) && hasGasInfo && <TextSeparator/> }
-        { hasGasInfo && (
+       { hasGasInfo && (
           <>
             <Skeleton loading={ isPlaceholderData } whiteSpace="pre-wrap">
               <chakra.span color="text.secondary">Gas </chakra.span>
@@ -97,6 +115,9 @@ const TopBarStats = () => {
             { !isPlaceholderData && <GetGasButton/> }
           </>
         ) }
+
+        {/* Testnet Badge - TextSeparator hataya, gap kam kiya */}
+        
       </Flex>
     </>
   );
