@@ -43,7 +43,7 @@ const NetworkLogo = ({ className }: Props) => {
       alignItems="center"
     >
       <Image
-        h={{ base: '32px', lg: '40px' }}
+        h={{ base: '32px', lg: '35px' }}
         w={{ base: 'auto', lg: 'auto' }}
         skeletonWidth="120px"
         src={logoSrc}

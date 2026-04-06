@@ -31,20 +31,22 @@ const NetworkIcon = ({ className }: Props) => {
   const iconSrc = useColorModeValue(config.UI.navigation.icon.default, config.UI.navigation.icon.dark || config.UI.navigation.icon.default);
 
   return (
-    <chakra.a
-      className={className}
-      href={route({ pathname: '/' })}
-      aria-label="Link to main page"
-    >
-      <Image
-        w="70px"
-        h="70px"
-        src="/icons/Logo.svg"
-        alt="nowa Logo"
-        fallback={<IconFallback />}
-        objectFit="contain"
-        objectPosition="left"
-      />
+   <chakra.a
+  className={className}
+  href={route({ pathname: '/' })}
+  aria-label="Link to main page"
+  display="flex"
+  alignItems="center"
+>
+ <Image
+ w="120px"
+h="120px"
+  src="/icons/Logo.svg"
+  alt="nowa Logo" 
+  fallback={<IconFallback />}
+  objectFit="contain"
+  objectPosition="center"
+/>
     </chakra.a>
   );
 };
