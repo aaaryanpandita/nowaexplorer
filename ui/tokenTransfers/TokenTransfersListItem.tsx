@@ -55,7 +55,7 @@ const TokenTransfersListItem = ({ item, isLoading, chainData }: Props) => {
       { item.method && (
         <>
           <ListItemMobileGrid.Label isLoading={ isLoading }>Method</ListItemMobileGrid.Label><ListItemMobileGrid.Value>
-            <Badge loading={ isLoading }>{ item.method }</Badge>
+            <Badge loading={ isLoading }>{ item.method?.replace(/ETH/g, 'NOWA') }</Badge>
           </ListItemMobileGrid.Value>
         </>
       ) }

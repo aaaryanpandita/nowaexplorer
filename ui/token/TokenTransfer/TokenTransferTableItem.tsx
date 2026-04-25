@@ -70,7 +70,7 @@ const TokenTransferTableItem = ({
       <TableCell>
         { method ? (
           <Box my="3px">
-            <Badge loading={ isLoading } truncated>{ method }</Badge>
+            <Badge loading={ isLoading } truncated>{ method?.replace(/ETH/g, 'NOWA') }</Badge>
           </Box>
         ) : null }
       </TableCell>

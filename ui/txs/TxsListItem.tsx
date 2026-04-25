@@ -98,7 +98,7 @@ const TxsListItem = ({
             whiteSpace="nowrap"
             textOverflow="ellipsis"
           >
-            <span>{ tx.method }</span>
+            <span>{ tx.method?.replace(/ETH/g, 'NOWA') }</span>
           </Skeleton>
         </Flex>
       ) }

@@ -61,7 +61,7 @@ const TokenTransferTableItem = ({ item, isLoading, chainData }: Props) => {
         />
       </TableCell>
       <TableCell maxW="120px">
-        { item.method && <Badge loading={ isLoading }>{ item.method }</Badge> }
+        { item.method && <Badge loading={ isLoading }>{ item.method?.replace(/ETH/g, 'NOWA') }</Badge> }
       </TableCell>
       <TableCell>
         <BlockEntity number={ item.block_number } isLoading={ isLoading } noIcon/>

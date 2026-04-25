@@ -94,7 +94,7 @@ const TxsTableItem = ({
       <TableCell whiteSpace="nowrap">
         { tx.method && (
           <Badge colorPalette={ tx.method === 'Multicall' ? 'teal' : 'gray' } loading={ isLoading } truncated>
-            <span>{ tx.method }</span>
+            <span>{ tx.method?.replace(/ETH/g, 'NOWA') }</span>
           </Badge>
         ) }
       </TableCell>
