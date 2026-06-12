@@ -5,6 +5,7 @@ import React from 'react';
 import type { TokenInfo } from 'types/api/token';
 
 import { route } from 'nextjs/routes';
+import CUSTOM_TOKEN_ICONS from './customTokenIcons';
 
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
@@ -48,11 +49,13 @@ const Icon = (props: IconProps) => {
     borderRadius: props.token.type === 'ERC-20' ? 'full' : 'base',
   };
 
+  const iconSrc = CUSTOM_TOKEN_ICONS[props.token.address_hash?.toLowerCase()] ?? props.token.icon_url ?? undefined;
+
   return (
     <EntityBase.Icon
       { ...styles }
       className={ props.className }
-      src={ props.token.icon_url ?? undefined }
+      src={ iconSrc }
       alt={ `${ props.token.name || 'token' } logo` }
       fallback={ <TokenLogoPlaceholder/> }
       shield={ props.shield ?? (props.chain ? { src: props.chain.logo } : undefined) }
