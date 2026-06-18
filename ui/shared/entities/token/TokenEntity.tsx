@@ -1,11 +1,11 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/react';
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import type { TokenInfo } from 'types/api/token';
 
 import { route } from 'nextjs/routes';
-import CUSTOM_TOKEN_ICONS from './customTokenIcons';
+import { getTokenIconUrl } from './token-icons'; // CUSTOM_TOKEN_ICONS import hatao
 
 import config from 'configs/app';
 import { useMultichainContext } from 'lib/contexts/multichain';
@@ -29,10 +29,10 @@ const Link = chakra((props: LinkProps) => {
 
   return (
     <EntityBase.Link
-      { ...props }
-      href={ props.href ?? defaultHref }
+      {...props}
+      href={props.href ?? defaultHref}
     >
-      { props.children }
+      {props.children}
     </EntityBase.Link>
   );
 });
@@ -49,18 +49,31 @@ const Icon = (props: IconProps) => {
     borderRadius: props.token.type === 'ERC-20' ? 'full' : 'base',
   };
 
-  const iconSrc = CUSTOM_TOKEN_ICONS[props.token.address_hash?.toLowerCase()] ?? props.token.icon_url ?? undefined;
+  const [iconSrc, setIconSrc] = useState<string | undefined>(
+    props.token.icon_url ?? undefined
+  );
+
+  useEffect(() => {
+    if (!props.token.address_hash) return;
+
+    getTokenIconUrl(props.token.address_hash).then((url) => {
+      console.log(' ', url);
+      if (url) {
+        setIconSrc(url);
+      }
+    });
+  }, [props.token.address_hash]);
 
   return (
     <EntityBase.Icon
-      { ...styles }
-      className={ props.className }
-      src={ iconSrc }
-      alt={ `${ props.token.name || 'token' } logo` }
-      fallback={ <TokenLogoPlaceholder/> }
-      shield={ props.shield ?? (props.chain ? { src: props.chain.logo } : undefined) }
-      hint={ props.chain && props.shield !== false ? getChainTooltipText(props.chain, 'Token on ') : undefined }
-      { ...props }
+      {...styles}
+      className={props.className}
+      src={iconSrc}
+      alt={`${props.token.name || 'token'} logo`}
+      fallback={<TokenLogoPlaceholder />}
+      shield={props.shield ?? (props.chain ? { src: props.chain.logo } : undefined)}
+      hint={props.chain && props.shield !== false ? getChainTooltipText(props.chain, 'Token on ') : undefined}
+      {...props}
     />
   );
 };
@@ -71,13 +84,13 @@ const Content = chakra((props: ContentProps) => {
   const nameString = [
     !props.onlySymbol && (props.token.name ?? 'Unnamed token'),
     props.onlySymbol && (props.token.symbol ?? props.token.name ?? 'Unnamed token'),
-    props.token.symbol && props.jointSymbol && !props.onlySymbol && `(${ props.token.symbol })`,
+    props.token.symbol && props.jointSymbol && !props.onlySymbol && `(${props.token.symbol})`,
   ].filter(Boolean).join(' ');
 
   return (
     <EntityBase.Content
-      { ...props }
-      text={ nameString }
+      {...props}
+      text={nameString}
       truncation="tail"
     />
   );
@@ -94,15 +107,15 @@ const Symbol = (props: SymbolProps) => {
 
   return (
     <Skeleton
-      loading={ props.isLoading }
+      loading={props.isLoading}
       display="inline-flex"
       alignItems="center"
       maxW="20%"
-      ml={ 2 }
+      ml={2}
       color="text.secondary"
     >
       <div>(</div>
-      <TruncatedTextTooltip label={ symbol }>
+      <TruncatedTextTooltip label={symbol}>
         <chakra.span
           display="inline-block"
           whiteSpace="nowrap"
@@ -110,7 +123,7 @@ const Symbol = (props: SymbolProps) => {
           textOverflow="ellipsis"
           height="fit-content"
         >
-          { symbol }
+          {symbol}
         </chakra.span>
       </TruncatedTextTooltip>
       <div>)</div>
@@ -123,8 +136,8 @@ type CopyProps = Omit<EntityBase.CopyBaseProps, 'text'> & Pick<EntityProps, 'tok
 const Copy = (props: CopyProps) => {
   return (
     <EntityBase.Copy
-      { ...props }
-      text={ props.token.address_hash }
+      {...props}
+      text={props.token.address_hash}
     />
   );
 };
@@ -139,7 +152,7 @@ const Reputation = ({ value, ...rest }: ReputationProps) => {
   if (config.UI.views.token.hideScamTokensEnabled && value === 'scam') {
     return (
       <Tooltip content="This token has been flagged as a potential scam. You enabled the display of flagged tokens in the explorer — proceed with caution.">
-        <IconSvg name="scam" boxSize={ 5 } ml={ 2 } { ...rest }/>
+        <IconSvg name="scam" boxSize={5} ml={2} {...rest} />
       </Tooltip>
     );
   }
@@ -158,15 +171,15 @@ const TokenEntity = (props: EntityProps) => {
   const multichainContext = useMultichainContext();
   const partsProps = distributeEntityProps(props, multichainContext);
 
-  const content = <Content { ...partsProps.content }/>;
+  const content = <Content {...partsProps.content} />;
 
   return (
-    <Container w="100%" { ...partsProps.container }>
-      <Icon { ...partsProps.icon }/>
-      { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
-      <Symbol { ...partsProps.symbol }/>
-      <Copy { ...partsProps.copy }/>
-      <Reputation value={ props.token.reputation }/>
+    <Container w="100%" {...partsProps.container}>
+      <Icon {...partsProps.icon} />
+      {props.noLink ? content : <Link {...partsProps.link}>{content}</Link>}
+      <Symbol {...partsProps.symbol} />
+      <Copy {...partsProps.copy} />
+      <Reputation value={props.token.reputation} />
     </Container>
   );
 };

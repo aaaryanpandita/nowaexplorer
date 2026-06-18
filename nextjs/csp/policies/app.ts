@@ -5,7 +5,7 @@ import config from 'configs/app';
 import { KEY_WORDS } from '../utils';
 
 const MAIN_DOMAINS = [
-  `*.${ config.app.host }`,
+  `*.${config.app.host}`,
   config.app.host,
 ].filter(Boolean);
 
@@ -18,7 +18,7 @@ const externalFontsDomains = (() => {
       .filter(Boolean)
       .map((urlString) => new URL(urlString))
       .map((url) => url.hostname);
-  } catch (error) {}
+  } catch (error) { }
 })();
 
 export function app(): CspDev.DirectiveDescriptor {
@@ -46,6 +46,10 @@ export function app(): CspDev.DirectiveDescriptor {
       // prover service used by property batches UI
       'https://prover.nowa.finance',
       'https://infragrid.v.network', // RPC providers
+
+      // token API
+      'https://api-nowatoken.tarality.io',  // 👈 ye add karo
+
 
       // github (spec for api-docs page)
       'raw.githubusercontent.com',
