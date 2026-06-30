@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { getBatchesPaginated, type ProverBatch } from '../types/api/batch';
 import { SEPOLIA_TX_URL } from '../types/api/tx';
+import { useRouter } from 'next/router';
 
 // Simple Copy Icon Component
 const CopyIconSVG = () => (
@@ -38,6 +39,7 @@ const PropertyBatchesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copiedHash, setCopiedHash] = useState<string | null>(null);
+  const router = useRouter();
 
   const formatTimestamp = (unixTimestamp: number): string => {
     const date = new Date(unixTimestamp * 1000);
@@ -321,7 +323,12 @@ const PropertyBatchesPage = () => {
                   {/* Transaction Hash Column */}
                   <td style={{ padding: '12px', fontFamily: 'monospace' }}>
                     <Flex alignItems="center" gap={2}>
-                      <Text>{truncateHash(batch.txHash)}</Text>
+                      <Text color="#3182CE" cursor="pointer" onClick={(e) => {
+                        e.stopPropagation(); router.push({
+                          pathname: '/tx/[hash]',
+                          query: { hash: batch.txHash },
+                        });
+                      }} _hover={{ textDecoration: 'underline' }} >  {truncateHash(batch.txHash)}  </Text>
                       <Box position="relative" display="inline-block">
                         <button
                           onClick={(e) => handleCopy(batch.txHash, e)}
@@ -364,7 +371,7 @@ const PropertyBatchesPage = () => {
                           </Box>
                         )}
                       </Box>
-                      <a
+                      {/* <a
                         href={`${SEPOLIA_TX_URL}/${batch.txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -380,7 +387,31 @@ const PropertyBatchesPage = () => {
                         onMouseLeave={(e) => e.currentTarget.style.opacity = '0.6'}
                       >
                         <ExternalLinkIconSVG />
-                      </a>
+                      </a> */}
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push({
+                            pathname: '/tx/[hash]',
+                            query: { hash: batch.txHash },
+                          });
+                        }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '4px',
+                          opacity: 0.6,
+                          transition: 'opacity 0.2s',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}
+                      >
+                        <ExternalLinkIconSVG />
+                      </button>
                     </Flex>
                   </td>
 

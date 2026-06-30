@@ -11,8 +11,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getBatchByNumber, type ProverBatch } from '../../types/api/batch';
 import { SEPOLIA_TX_URL } from '../../types/api/tx';
-import BLOCKSCOUT_BASE_URL from './blockscout_base';
-
+ import { BLOCKSCOUT_BASE_URL } from './blockscout_base';
+ 
 const CopyIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
