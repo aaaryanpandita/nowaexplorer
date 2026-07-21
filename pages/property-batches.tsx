@@ -323,12 +323,16 @@ const PropertyBatchesPage = () => {
                   {/* Transaction Hash Column */}
                   <td style={{ padding: '12px', fontFamily: 'monospace' }}>
                     <Flex alignItems="center" gap={2}>
-                      <Text color="#3182CE" cursor="pointer" onClick={(e) => {
+                      {/* <Text color="#3182CE" cursor="pointer" onClick={(e) => {
                         e.stopPropagation(); router.push({
                           pathname: '/tx/[hash]',
                           query: { hash: batch.txHash },
                         });
-                      }} _hover={{ textDecoration: 'underline' }} >  {truncateHash(batch.txHash)}  </Text>
+                      }} _hover={{ textDecoration: 'underline' }} >  {truncateHash(batch.txHash)}  </Text> */}
+                      <Text color="#3182CE" cursor="pointer" onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(`${SEPOLIA_TX_URL}/${batch.txHash}`, '_blank', 'noopener,noreferrer');
+                      }} _hover={{ textDecoration: 'underline' }} >  {truncateHash(batch.txHash)}  </Text>
                       <Box position="relative" display="inline-block">
                         <button
                           onClick={(e) => handleCopy(batch.txHash, e)}
@@ -390,12 +394,17 @@ const PropertyBatchesPage = () => {
                       </a> */}
 
                       <button
+                        // onClick={(e) => {
+                        //   e.stopPropagation();
+                        //   router.push({
+                        //     pathname: '/tx/[hash]',
+                        //     query: { hash: batch.txHash },
+                        //   });
+                        // }}
+
                         onClick={(e) => {
                           e.stopPropagation();
-                          router.push({
-                            pathname: '/tx/[hash]',
-                            query: { hash: batch.txHash },
-                          });
+                          window.open(`${SEPOLIA_TX_URL}/${batch.txHash}`, '_blank', 'noopener,noreferrer');
                         }}
                         style={{
                           background: 'none',

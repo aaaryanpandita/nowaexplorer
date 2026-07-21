@@ -516,7 +516,7 @@ const BatchDetailPage = () => {
                             {truncateHash(tx.to)}
                           </td>
                           <td style={{ padding: '12px 16px', fontWeight: '600', color: '#E2E8F0' }}>
-                            {tx.value} ETH
+                            {tx.value} NOWA
                           </td>
                           <td style={{ padding: '12px 16px', color: '#A0AEC0' }}>
                             {formatTimestamp(tx.timestamp)}
